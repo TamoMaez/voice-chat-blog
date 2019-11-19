@@ -8,17 +8,16 @@ app.get('/', (req, res) => res.send('It\'s alive!'));
 
 app.post('/message', (req, res) => {
   const { body } = req;
-  console.log('body', body)
 
-  if (!body.message || !body.message.text) {
+  if (!body.message) {
     return res.send('no message')
   }
 
-  const { text: incoming } = body.message;
-
   let answer = { text: 'I didn\'t catch that, could you repeat the sentence?' };
 
-  switch(incoming.toLowerCase()) {
+  const message = body.message.replace('.', '').trim();
+
+  switch(message.toLowerCase()) {
     case 'hello':
       answer = { text: 'Hi, how are you?' };
       break;
@@ -31,7 +30,8 @@ app.post('/message', (req, res) => {
     case 'goodbye':
       answer = { text: 'Nice talking to you', action: 'hangup' };
       break;
-    default: break;
+    default: 
+      break;
   }
 
   res.json(answer);
