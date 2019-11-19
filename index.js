@@ -8,6 +8,7 @@ app.get('/', (req, res) => res.send('It\'s alive!'));
 
 app.post('/message', (req, res) => {
   const { body } = req;
+  console.log('body', body)
 
   if (!body.message || !body.message.text) {
     return res.send('no message')
@@ -15,7 +16,7 @@ app.post('/message', (req, res) => {
 
   const { text: incoming } = body.message;
 
-  const answer = { text: 'I didn\'t catch that, could you repeat the sentence?' };
+  let answer = { text: 'I didn\'t catch that, could you repeat the sentence?' };
 
   switch(incoming.toLowerCase()) {
     case 'hello':
